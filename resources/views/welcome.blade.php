@@ -1,17 +1,23 @@
 @extends('layouts.app',['class' => 'off-canvas-sidebar', 'activePage' => 'home'])
 @section('content')
-    <div class="container mt-3 mb-5" style="height: auto;">
+    <div class="container mt-3" style="height: auto;">
         <div class="row">
             <img class="rounded mx-auto d-block mx-auto mt-5" src="{{asset('material/img/credimia_logos2.png')}}">
         </div>
-        <div class="row align-items-center my-auto">
-            <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+        <div class="container mt-5">
+            <div class="row">
+                <img class="rounded mx-auto d-block" style="max-height: 190px; max-width: 190px;" src="{{asset('material/img/logo2.png')}}">
+            </div>
+        </div>
+
+        <div class="row align-items-center my-auto text-center pb-5">
+            <div class="col-lg-6 col-md-8 col-sm-10 ml-auto mr-auto">
                 <form class="form" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="card card-login card-hidden mb-3">
+                    <div class="card card-login card-hidden pb-5">
 
-                        <div class="card-body">
+                        <div class="card-body mx-auto">
                             <div class="bmd-form-group">
                                 <div class="input-group">
                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -23,7 +29,7 @@
                                         </div>
                                         <div>
                                         <span class="btn btn-raised btn-round btn-default btn-file">
-                                            <input type="file" accept="image/*" name="imageprofile" id="imageprofile" required/>
+                                            <input type="file" accept="image/*" name="imageprofile" id="imageprofile"/>
                                         </span>
                                             {{--                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i--}}
                                             {{--                                                    class="fa fa-times"></i> Remove</a>--}}
@@ -41,15 +47,21 @@
                             </div>
                             <div class="bmd-form-group mt-3">
                                 <div class="input-group">
-                                    <input type="text" name="type" class="form-control" placeholder="Tipo de negocio"
-                                           required>
+                                    <select class="form-control" name="type" required>
+                                        <option value="">Selecciona una categoría</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->nombre}}</option>
+                                        @endforeach
+                                    </select>
+{{--                                    <input type="text" name="type" class="form-control" placeholder="Tipo de negocio"--}}
+{{--                                           required>--}}
                                 </div>
 
                             </div>
                             <div class="bmd-form-group mt-3">
 
                                 <div class="input-group">
-                                    <input type="text" name="contact" class="form-control" placeholder="Contacto"
+                                    <input type="tel" name="contact" class="form-control" placeholder="Contacto"
                                            required>
                                 </div>
                             </div>

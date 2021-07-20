@@ -20,6 +20,17 @@
                             <i class="material-icons">dashboard</i> {{ __('Dashboard') }}
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/logout') }}" class="nav-link"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
                 @endauth
                 @guest
                     <li class="nav-item{{ $activePage == 'login' ? ' active' : '' }}">

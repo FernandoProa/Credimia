@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBussinesTable extends Migration
+class AddForeignToBussines extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateBussinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bussines', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('contacto');
-            $table->string('imagen')->nullable();
-            $table->timestamps();
+        Schema::table('bussines', function (Blueprint $table) {
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+
         });
     }
 
@@ -29,6 +27,8 @@ class CreateBussinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bussines');
+        Schema::table('bussines', function (Blueprint $table) {
+            //
+        });
     }
 }

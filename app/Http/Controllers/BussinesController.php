@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bussines;
+use App\Models\Categories;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BussinesController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $categories = Categories::orderBy('nombre')->get();
+        return view('welcome',compact('categories'));
     }
 
     public function store(Request $request)
@@ -20,16 +23,22 @@ class BussinesController extends Controller
 //            'contacto' => ['required'],
 //            'imageprofile' => ['required', 'image'],
 //        ]);
+        if($request->imageprofile){
+            $imageName = time() . '.' . $request->imageprofile->extension();
+            $request->imageprofile->move(public_path('images'), $imageName);
+            $name = '/images/' . $imageName;
+        } else {
+            $name = '/material/img/visionar.png';
+        }
 
-        $imageName = time() . '.' . $request->imageprofile->extension();
-        $request->imageprofile->move(public_path('images'), $imageName);
+
         Bussines::create([
             'nombre' => $request->name,
-            'tipo' => $request->type,
+            'category_id' => $request->type,
             'contacto' => $request->contact,
-            'imagen' => '/images/' . $imageName,
+            'imagen' => $name,
         ]);
-
+        Alert::success('Success Title', 'Success Message');
         return redirect()->route('welcome');
     }
 }
