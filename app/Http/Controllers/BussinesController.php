@@ -38,7 +38,7 @@ class BussinesController extends Controller
             'contacto' => $request->contact,
             'imagen' => $name,
         ]);
-        Alert::success('Success Title', 'Success Message');
+        Alert::success('Registro correcto', 'Registrado');
         return redirect()->route('welcome');
     }
 }

@@ -7,7 +7,7 @@
                 <p class="mx-auto text-black-80">Hay {{$bussines->count()}} registros totales</p>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 @foreach($bussines as $people)
                     <div class="col-md-3">
                         <div class="card card-pricing col-md-7" style="border-radius: 85px; background-color: #96448E">
@@ -23,13 +23,33 @@
                                 <p class="card-description  text-white">
                                     {{$people->contacto}}
                                 </p>
-
-                                {{--                                <a href="#pablo" class="btn btn-white btn-round">Choose Plan</a>--}}
                             </div>
                         </div>
                     </div>
                 @endforeach
+            </div> -->
+            <div class="row">
+                @foreach($bussines as $people)
+                <div class="col-md-3" style="background-color:transparent">
+                    <div class="card col-md-10 align-self-center" style="background-color:white">
+                        <br>
+                        <img src="{{$people->imagen}}" class="rounded-circle" alt="Perfil" width="140" height="140"
+                                style="display:block; margin:auto;">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary text-center"><strong> {{$people->nombre}}</strong></h5>
+                            <div>
+                                <p class="card-text text-center">
+                                    Negocio: {{$people->category->nombre}} <br>
+                                    Contacto: {{$people->contacto}} <br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                @endforeach
             </div>
+            
         </div>
     </div>
 @endsection
