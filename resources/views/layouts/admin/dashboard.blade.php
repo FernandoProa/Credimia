@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard','class' => 'off-canvas-sidebar', 'titlePage' => __('Dashboard')])
+@extends('layouts.admin.app', ['activePage' => 'dashboard','class' => 'off-canvas-sidebar', 'titlePage' => __('Dashboard')])
 
 @section('content')
     <div class="content mt-5">
@@ -45,11 +45,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 @endforeach
             </div>
-            
+
         </div>
     </div>
 @endsection

@@ -12,41 +12,37 @@ class BussinesController extends Controller
     public function index()
     {
         $categories = Categories::orderBy('nombre')->get();
-        return view('welcome',compact('categories'));
+        return view('welcome', compact('categories'));
     }
 
     public function store(Request $request)
     {
-       $validatedData = $request->validate([
-        //    'nombre' => ['required'],
-        //    'tipo' => ['required'],
-           'contacto' => ['required|unique:bussines']
-        //    'imageprofile' => ['required', 'image'],
-       ]);
-        if($request->imageprofile){
+        $request->validate([
+            'name' => ['required'],
+            'type' => ['required'],
+            'contact' => ['required', 'numeric', 'digits:10'],
+            'imageprofile' => ['required', 'image'],
+        ]);
+
+        if ($request->imageprofile) {
             $imageName = time() . '.' . $request->imageprofile->extension();
             $request->imageprofile->move(public_path('images'), $imageName);
             $name = '/images/' . $imageName;
         } else {
             $name = '/material/img/visionar.png';
         }
-        $valor = 0;
 
-        if($valor==0){
-            $valor=1;
-            Bussines::create([
-                'nombre' => $request->name,
-                'category_id' => $request->type,
-                'contacto' => $request->contact,
-                'imagen' => $name,
-            ]);
-            Alert::success('Registro correcto', 'Registrado');
-        }else{
-            Alert::warning('Se evita duplicidad', 'Warning');
-        }
+        Bussines::create([
+            'nombre' => $request->name,
+            'category_id' => $request->type,
+            'contacto' => $request->contact,
+            'imagen' => $name,
+        ]);
+        Alert::success('Registro correcto', 'Registrado');
+
 
         return redirect()->route('welcome');
-        
-        
+
+
     }
 }

@@ -12,7 +12,7 @@
 
         <div class="row align-items-center my-auto text-center pb-5">
             <div class="col-lg-6 col-md-8 col-sm-10 ml-auto mr-auto">
-                <form class="form" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                <form class="form" action="{{ route('store') }}" onsubmit="document.getElementById('registrarse').disabled = true;" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="card card-login card-hidden pb-5">
@@ -29,6 +29,9 @@
                                         <span class="btn btn-raised btn-round btn-default btn-file">
                                             <input type="file" accept="image/*" name="imageprofile" id="imageprofile"/>
                                         </span>
+                                            @error('imageprofile')
+                                            <span class="text-sm-center text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -40,6 +43,9 @@
                                     <input type="text" name="name" class="form-control" placeholder="Nombre"
                                            required>
                                 </div>
+                                @error('name')
+                                <span class="text-sm-center text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="bmd-form-group mt-3">
                                 <div class="input-group">
@@ -50,18 +56,24 @@
                                         @endforeach
                                     </select>
                                 </div>
-
+                                @error('type')
+                                <span class="text-sm-center text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="bmd-form-group mt-3">
 
                                 <div class="input-group">
                                     <input type="tel" name="contact" class="form-control" placeholder="Contacto"
                                            required>
+
                                 </div>
+                                @error('contact')
+                                <span class="text-sm-center text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="card-footer justify-content-center">
-                            <button type="submit" id="btn-registrarse" class="btn btn-primary">Registrarse</button>
+                            <button type="submit" id="registrarse" class="btn btn-primary" name="registrarse">Registrarse</button>
                         </div>
                     </div>
                 </form>
@@ -87,7 +99,7 @@
         function myFunction() {
             $("#btn-registrarse").prop('disabled', true);
         }
-        
+
 
     </script>
 @endpush
