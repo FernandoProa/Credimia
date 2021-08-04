@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $bussines = Bussines::all();
+        $bussines = Bussines::orderBy('id','desc')->get();
         return view('layouts.admin.dashboard', compact('bussines'));
     }
 }
